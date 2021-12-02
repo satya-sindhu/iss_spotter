@@ -1,5 +1,4 @@
 // iss.js
-const request = require('request');
 /**
  * Makes a single API request to retrieve the user's IP address.
  * Input:
@@ -8,8 +7,10 @@ const request = require('request');
  *   - An error, if any (nullable)
  *   - The IP address as a string (null if error). Example: "162.245.144.188"
  */
+ const request = require('request');
 
 const fetchMyIP = function(callback) { 
+
 // use request to fetch IP address from JSON API
   const url = 'https://api.ipify.org?format=json';
   request(url , (error, response, body) => {
@@ -30,6 +31,7 @@ const fetchMyIP = function(callback) {
 };
 
 const fetchCoordsByIP = function(ip, callback) {
+
   const url = `https://api.freegeoip.app/json/${ip}?apikey=6ac08040-3de2-11ec-81b5-2339b660aaa4`;
   request(url , (error, response, body) => {
 if (error) {
@@ -47,6 +49,7 @@ fetchISSFlyOverTimes({latitude , longitude}, callback);
   }
  });
 };
+
 const fetchISSFlyOverTimes = function(coords, callback) {
     // ...
     const url = `https://iss-pass.herokuapp.com/json/?lat=${coords.latitude}&lon=${coords.longitude}`;
@@ -67,5 +70,13 @@ const fetchISSFlyOverTimes = function(coords, callback) {
       }
     });
   };
+
+  const nextISSTimesForMyLocation = function(callback) {
+    fetchMyIP(callback);
+  };
   
+  
+//module.exports = { fetchMyIP, fetchCoordsByIP };
+//module.exports = { fetchMyIP};
+//module.exports = { fetchISSFlyOverTimes};
 module.exports = { fetchMyIP };
